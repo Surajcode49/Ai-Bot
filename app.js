@@ -18,9 +18,9 @@ function wishMe() {
   var hour = day.getHours();
 
   if (hour >= 0 && hour < 12) {
-    speak("Good Morning Children and Good Morning Suraj Sir...");
+    speak("Good Morning Children and Good Morning Sir...");
   } else if (hour >= 12 && hour < 17) {
-    speak("Good Afternoon Children and good morning Suraj Sir...");
+    speak("Good Afternoon Children and good morning Sir...");
   } else {
     speak("Good Evening Sir...");
   }
@@ -99,17 +99,25 @@ function takeCommand(message) {
     speak("My name is Codie, I am AI Bot .");
   } 
   
-  else if (message.includes("my name "))
+
+
+
+
+  else if (message.includes(" Type Question Here "))
   {
-          speak("yash raj")
+          speak("Type Answer here")
   }
   
+
+
+
+  
   else if (
-    message.includes("Sing a Song") ||
+    message.includes("Who is you creator") ||
     message.includes("what is the name of your Creater") ||
-    message.includes(" ")
+    message.includes("your creator name")
   ) {
-    speak("/");
+    speak(" Mr. Bikash sir is my Creator");
   } else if (message.includes("date")) {
     const date = new Date().toLocaleString(undefined, {
       month: "short",
