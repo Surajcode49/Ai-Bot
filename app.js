@@ -27,7 +27,7 @@ function wishMe() {
 }
 
 window.addEventListener("load", () => {
-  speak("Initializing  cody Bot , They Bot is Ready ..");
+  speak("Initializing Cody Bot, Cody Bot is Ready...");
   wishMe();
 });
 
@@ -35,7 +35,6 @@ const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
 
-// Add debug statement to check if speech recognition is supported
 if (!SpeechRecognition) {
   console.error("Speech Recognition API not supported in this browser.");
 }
@@ -58,14 +57,14 @@ recognition.onresult = (event) => {
   const currentIndex = event.resultIndex;
   const transcript = event.results[currentIndex][0].transcript;
   content.textContent = transcript;
-  console.log("Recognized Text: " + transcript); // Add debug statement to log recognized text
+  console.log("Recognized Text: " + transcript);
   takeCommand(transcript.toLowerCase());
 };
 
 btn.addEventListener("click", () => {
   content.textContent = "Listening....";
   recognition.start();
-  console.log("Recognition started"); // Add debug statement to log when recognition starts
+  console.log("Recognition started");
 });
 
 sendTextButton.addEventListener("click", () => {
@@ -83,12 +82,12 @@ function sendMessage() {
   if (message.trim() !== "") {
     content.textContent = message;
     takeCommand(message.toLowerCase());
-    textInput.value = ""; // Clear the text input after sending the message
+    textInput.value = "";
   }
 }
 
 function takeCommand(message) {
-  console.log("Received command: " + message); // Add debug statement to log received commands
+  console.log("Received command: " + message);
   if (message.includes("hey") || message.includes("hello")) {
     speak("Hello Sir, How May I Help You?");
   } else if (
@@ -96,48 +95,53 @@ function takeCommand(message) {
     message.includes("who are you") ||
     message.includes("what's your name")
   ) {
-    speak("My name is Codie, I am AI Bot .");
-  } 
-  
-
-
-
-
-  else if (message.includes(" Type Question Here "))
-  {
-          speak("Type Answer here")
-  }
-  
-
-
-
-  
-  else if (
-    message.includes("Who is you creator") ||
-    message.includes("what is the name of your Creater") ||
+    speak("My name is Cody, I am an AI Bot.");
+  } else if (message.includes("how are you")) {
+    speak("I'm just a bot, but I'm functioning perfectly. How about you?");
+  } else if (message.includes("what can you do")) {
+    speak(
+      "I can assist you with basic tasks like answering questions, telling jokes, and providing the time and date. What do you need help with?"
+    );
+  } else if (message.includes("tell me a joke")) {
+    speak("Why don’t programmers like nature? It has too many bugs!");
+  } else if (message.includes("where are you from")) {
+    speak("I live in your device, powered by code and algorithms.");
+  } else if (message.includes("can you help me with coding")) {
+    speak(
+      "Of course! Let me know what programming language or concept you're working on."
+    );
+  } else if (message.includes("what is ai") || message.includes("what is artificial intelligence")) {
+    speak(
+      "Artificial intelligence, or AI, is the simulation of human intelligence in machines that are programmed to think and learn."
+    );
+  } else if (message.includes("what is the weather today")) {
+    speak("I'm unable to fetch live weather updates. You can check your weather app for accurate details.");
+  } else if (message.includes("can you sing a song")) {
+    speak("I can’t sing, but I can recite lyrics! Twinkle twinkle little star, how I wonder what you are!");
+  } else if (message.includes("what do you eat")) {
+    speak("I'm an artificial intelligence. I don't eat food.");
+  } else if (
+    message.includes("who is your creator") ||
+    message.includes("what is the name of your creator") ||
     message.includes("your creator name")
   ) {
-    speak(" Mr. Bikash sir is my Creator");
+    speak("Mr. Bikash Sir is my Creator.");
   } else if (message.includes("date")) {
-    const date = new Date().toLocaleString(undefined, {
+    const date = new Date().toLocaleDateString(undefined, {
       month: "short",
       day: "numeric",
     });
-    speak(date);
+    speak(`Today's date is ${date}`);
   } else if (message.includes("time")) {
-    const time = new Date().toLocaleString(undefined, {
+    const time = new Date().toLocaleTimeString(undefined, {
       hour: "2-digit",
       minute: "2-digit",
     });
-    speak(time);
-  }
-  
-   else if (message.includes("what do you eat")) {
-    speak("  im a artificial  intelligence i dont want food  ");
+    speak(`The current time is ${time}`);
   } else if (message.includes("thank you") || message.includes("thanks")) {
     speak("You're welcome! How else can I assist you?");
   } else if (message.includes("goodbye") || message.includes("bye")) {
-    speak("Goodbye! Have a great day! ");
+    speak("Goodbye! Have a great day!");
   } else {
     speak("I am not sure how to respond to that.");
   }
