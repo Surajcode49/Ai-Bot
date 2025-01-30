@@ -3,36 +3,35 @@ const content = document.querySelector(".content");
 const textInput = document.querySelector(".text-input");
 const sendTextButton = document.querySelector(".send-text");
 
+// Speak function
 function speak(text) {
   const text_speak = new SpeechSynthesisUtterance(text);
-
   text_speak.rate = 1;
   text_speak.volume = 1;
   text_speak.pitch = 1;
-
   window.speechSynthesis.speak(text_speak);
 }
 
+// Greet based on time
 function wishMe() {
-  var day = new Date();
-  var hour = day.getHours();
-
+  const hour = new Date().getHours();
   if (hour >= 0 && hour < 12) {
-    speak("Good Morning Children and Good Morning Sir...");
+    speak("Good Morning Suraj, respected teacher, and loving students. Good Morning Sir...");
   } else if (hour >= 12 && hour < 17) {
-    speak("Good Afternoon Children and good morning Sir...");
+    speak("Good Afternoon Suraj, respected teacher, and loving students. Good Afternoon Sir...");
   } else {
-    speak("Good Evening Sir...");
+    speak("Good Evening Suraj, respected teacher, and loving students. Good Evening Sir...");
   }
 }
 
+// Initialize Cody Bot
 window.addEventListener("load", () => {
   speak("Initializing Cody Bot, Cody Bot is Ready...");
   wishMe();
 });
 
-const SpeechRecognition =
-  window.SpeechRecognition || window.webkitSpeechRecognition;
+// Speech Recognition Setup
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
 
 if (!SpeechRecognition) {
@@ -44,9 +43,7 @@ recognition.onstart = () => {
 };
 
 recognition.onspeechend = () => {
-  console.log(
-    "You were quiet for a while so voice recognition turned itself off."
-  );
+  console.log("You were quiet for a while so voice recognition turned itself off.");
 };
 
 recognition.onerror = (event) => {
@@ -61,16 +58,15 @@ recognition.onresult = (event) => {
   takeCommand(transcript.toLowerCase());
 };
 
+// Button click to start recognition
 btn.addEventListener("click", () => {
   content.textContent = "Listening....";
   recognition.start();
   console.log("Recognition started");
 });
 
-sendTextButton.addEventListener("click", () => {
-  sendMessage();
-});
-
+// Send text input
+sendTextButton.addEventListener("click", sendMessage);
 textInput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     sendMessage();
@@ -78,14 +74,62 @@ textInput.addEventListener("keydown", (event) => {
 });
 
 function sendMessage() {
-  const message = textInput.value;
-  if (message.trim() !== "") {
+  const message = textInput.value.trim();
+  if (message !== "") {
     content.textContent = message;
     takeCommand(message.toLowerCase());
     textInput.value = "";
   }
 }
 
+// Weather API Integration
+async function getWeather(city) {
+  const apiKey = "6e08b1696521efc24a54c4e7de6fd3a7"; // Replace with your OpenWeatherMap API key
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    if (data.cod === 200) {
+      const weather = data.weather[0].description;
+      const temp = data.main.temp;
+      speak(`The weather in ${city} is ${weather} with a temperature of ${temp} degrees Celsius.`);
+    } else {
+      speak("Sorry, I couldn't fetch the weather. Please check the city name.");
+    }
+  } catch (error) {
+    console.error("Error fetching weather:", error);
+    speak("Sorry, I couldn't fetch the weather. Please try again later.");
+  }
+}
+
+// Open Applications (PC)
+function openApplication(appName) {
+  const apps = {
+    notepad: "notepad.exe", // Opens Notepad
+    calculator: "calc.exe", // Opens Calculator
+    browser: "chrome.exe",  // Opens Chrome (replace with your preferred browser)
+  };
+
+  if (apps[appName]) {
+    speak(`Opening ${appName}`);
+    window.open(apps[appName], "_blank"); // Open the application
+  } else {
+    speak(`Sorry, I don't know how to open ${appName}.`);
+  }
+}
+
+// Calculator
+function calculate(expression) {
+  try {
+    const result = eval(expression); // Evaluate the mathematical expression
+    speak(`The result is ${result}`);
+  } catch (error) {
+    console.error("Error in calculation:", error);
+    speak("Sorry, I couldn't calculate that. Please check your input.");
+  }
+}
+
+// Command Handling
 function takeCommand(message) {
   console.log("Received command: " + message);
   if (message.includes("hey") || message.includes("hello")) {
@@ -100,7 +144,7 @@ function takeCommand(message) {
     speak("I'm just a bot, but I'm functioning perfectly. How about you?");
   } else if (message.includes("what can you do")) {
     speak(
-      "I can assist you with basic tasks like answering questions, telling jokes, and providing the time and date. What do you need help with?"
+      "I can assist you with basic tasks like answering questions, telling jokes, providing the time and date, fetching weather, opening applications, and performing calculations. What do you need help with?"
     );
   } else if (message.includes("tell me a joke")) {
     speak("Why don’t programmers like nature? It has too many bugs!");
@@ -114,8 +158,21 @@ function takeCommand(message) {
     speak(
       "Artificial intelligence, or AI, is the simulation of human intelligence in machines that are programmed to think and learn."
     );
-  } else if (message.includes("what is the weather today")) {
-    speak("I'm unable to fetch live weather updates. You can check your weather app for accurate details.");
+  } else if (message.includes("weather")) {
+    const city = message.split("in ")[1] || "your location";
+    getWeather(city);
+  } else if (message.includes("open")) {
+    const appName = message.split("open ")[1];
+    openApplication(appName);
+  } else if (message.includes("calculator")) {
+    openApplication("calculator"); // Open the Calculator app
+  } else if (message.includes("calculate")) {
+    const expression = message.split("calculate ")[1]; // Extract the expression
+    if (expression) {
+      calculate(expression); // Pass the expression to the calculate function
+    } else {
+      speak("Please provide a valid mathematical expression to calculate.");
+    }
   } else if (message.includes("can you sing a song")) {
     speak("I can’t sing, but I can recite lyrics! Twinkle twinkle little star, how I wonder what you are!");
   } else if (message.includes("what do you eat")) {
@@ -125,7 +182,7 @@ function takeCommand(message) {
     message.includes("what is the name of your creator") ||
     message.includes("your creator name")
   ) {
-    speak("Mr. Bikash Sir is my Creator.");
+    speak("Mr. Suraj is my Creator.");
   } else if (message.includes("date")) {
     const date = new Date().toLocaleDateString(undefined, {
       month: "short",
