@@ -18,7 +18,7 @@ function wishMe() {
   var hour = day.getHours();
 
   if (hour >= 0 && hour < 12) {
-    speak("Good Morning Children and Good Morning Sir...");
+    speak("Good Morning Children and Good Morning Sir.");
   } else if (hour >= 12 && hour < 17) {
     speak("Good Afternoon Children and good morning Sir...");
   } else {
@@ -95,7 +95,7 @@ function takeCommand(message) {
     message.includes("who are you") ||
     message.includes("what's your name")
   ) {
-    speak("My name is Cody, I am an AI Bot.");
+    speak("My name is Cody, I am an AI Bot");
   } else if (message.includes("how are you")) {
     speak("I'm just a bot, but I'm functioning perfectly. How about you?");
   } else if (message.includes("what can you do")) {
@@ -104,15 +104,15 @@ function takeCommand(message) {
     );
   } else if (message.includes("tell me a joke")) {
     speak("Why don’t programmers like nature? It has too many bugs!");
-  } else if (message.includes("where are you from")) {
-    speak("I live in your device, powered by code and algorithms.");
-  } else if (message.includes("can you help me with coding")) {
+  } else if (message.includes("what is your favourite fruit")) {
+    speak("my favourite fruit is mango");
+  } else if (message.includes("tell me about indian occen")) {
     speak(
-      "Of course! Let me know what programming language or concept you're working on."
+      "The Indian Ocean is the third-largest ocean in the world, covering about 20% of Earth's water surface. It is surrounded by Asia to the north, Africa to the west, Australia to the east, and the Southern Ocean or Antarctica to the south. Here’s an overview:"
     );
-  } else if (message.includes("what is ai") || message.includes("what is artificial intelligence")) {
+  } else if (message.includes("what is your favourite colour") || message.includes("what is artificial intelligence")) {
     speak(
-      "Artificial intelligence, or AI, is the simulation of human intelligence in machines that are programmed to think and learn."
+      "black"
     );
   } else if (message.includes("what is the weather today")) {
     speak("I'm unable to fetch live weather updates. You can check your weather app for accurate details.");
