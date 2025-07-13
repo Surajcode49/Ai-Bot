@@ -124,8 +124,9 @@ function takeCommand(message) {
     message.includes("who is your creator") ||
     message.includes("what is the name of your creator") ||
     message.includes("your creator name")
+    message.includes("who build you")
   ) {
-    speak("Mr. Bikash Sir is my Creator.");
+    speak("MR Suraj is my Creator.");
   } else if (message.includes("date")) {
     const date = new Date().toLocaleDateString(undefined, {
       month: "short",
