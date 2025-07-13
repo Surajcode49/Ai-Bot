@@ -5,11 +5,9 @@ const sendTextButton = document.querySelector(".send-text");
 
 function speak(text) {
   const text_speak = new SpeechSynthesisUtterance(text);
-
   text_speak.rate = 1;
   text_speak.volume = 1;
   text_speak.pitch = 1;
-
   window.speechSynthesis.speak(text_speak);
 }
 
@@ -18,11 +16,11 @@ function wishMe() {
   var hour = day.getHours();
 
   if (hour >= 0 && hour < 12) {
-    speak("Good Morning Children and Good Morning Sir.");
+    speak("Good Morning Student , Teacher and Good Morning Suraj , how are you buddy.");
   } else if (hour >= 12 && hour < 17) {
-    speak("Good Afternoon Children and good morning Sir...");
+    speak("Good Afternoon Student , Teacher and Good Morning Suraj , how are you buddy.");
   } else {
-    speak("Good Evening Sir...");
+    speak("Good Evening Student , Teacher and Good Morning Suraj , how are you buddy.");
   }
 }
 
@@ -31,8 +29,7 @@ window.addEventListener("load", () => {
   wishMe();
 });
 
-const SpeechRecognition =
-  window.SpeechRecognition || window.webkitSpeechRecognition;
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
 
 if (!SpeechRecognition) {
@@ -44,9 +41,7 @@ recognition.onstart = () => {
 };
 
 recognition.onspeechend = () => {
-  console.log(
-    "You were quiet for a while so voice recognition turned itself off."
-  );
+  console.log("You were quiet for a while so voice recognition turned itself off.");
 };
 
 recognition.onerror = (event) => {
@@ -88,6 +83,7 @@ function sendMessage() {
 
 function takeCommand(message) {
   console.log("Received command: " + message);
+
   if (message.includes("hey") || message.includes("hello")) {
     speak("Hello Sir, How May I Help You?");
   } else if (
@@ -99,21 +95,15 @@ function takeCommand(message) {
   } else if (message.includes("how are you")) {
     speak("I'm just a bot, but I'm functioning perfectly. How about you?");
   } else if (message.includes("what can you do")) {
-    speak(
-      "I can assist you with basic tasks like answering questions, telling jokes, and providing the time and date. What do you need help with?"
-    );
+    speak("I can assist you with basic tasks like answering questions, telling jokes, and providing the time and date. What do you need help with?");
   } else if (message.includes("tell me a joke")) {
     speak("Why don’t programmers like nature? It has too many bugs!");
   } else if (message.includes("what is your favourite fruit")) {
-    speak("my favourite fruit is mango");
-  } else if (message.includes("tell me about indian occen")) {
-    speak(
-      "The Indian Ocean is the third-largest ocean in the world, covering about 20% of Earth's water surface. It is surrounded by Asia to the north, Africa to the west, Australia to the east, and the Southern Ocean or Antarctica to the south. Here’s an overview:"
-    );
+    speak("My favourite fruit is mango.");
+  } else if (message.includes("tell me about indian ocean")) {
+    speak("The Indian Ocean is the third-largest ocean in the world, covering about 20% of Earth's water surface. It is surrounded by Asia to the north, Africa to the west, Australia to the east, and the Southern Ocean or Antarctica to the south.");
   } else if (message.includes("what is your favourite colour") || message.includes("what is artificial intelligence")) {
-    speak(
-      "black"
-    );
+    speak("Black.");
   } else if (message.includes("what is the weather today")) {
     speak("I'm unable to fetch live weather updates. You can check your weather app for accurate details.");
   } else if (message.includes("can you sing a song")) {
@@ -123,7 +113,7 @@ function takeCommand(message) {
   } else if (
     message.includes("who is your creator") ||
     message.includes("what is the name of your creator") ||
-    message.includes("your creator name")
+    message.includes("your creator name") ||
     message.includes("who build you")
   ) {
     speak("MR Suraj is my Creator.");
