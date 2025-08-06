@@ -16,7 +16,7 @@ function wishMe() {
   var hour = day.getHours();
 
   if (hour >= 0 && hour < 12) {
-    speak("Good Morning Student , Teacher and Good Morning Suraj , how are you buddy.");
+    speak("Good Morning Student , Teacher and Good Morning Suraj , how are you buddy");
   } else if (hour >= 12 && hour < 17) {
     speak("Good Afternoon Student , Teacher and Good Morning Suraj , how are you buddy.");
   } else {
