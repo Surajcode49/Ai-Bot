@@ -124,7 +124,7 @@ function takeCommand(message) {
   } else if (
     message.includes("who is anushka")
   ) {
-    speak("Ohh.. nice question. Anushka is boss of my boss. She is the best friend of my boss Mr Suraj.");
+    speak("Ohh.. nice question She is the best friend of my boss Mr Suraj.");
   } else if (message.includes("date")) {
     const date = new Date().toLocaleDateString(undefined, {
       month: "short",
